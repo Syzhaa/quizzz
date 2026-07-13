@@ -1,19 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer base {
   body {
-    @apply font-sans text-neo-black;
+    @apply font-sans text-slate-800 bg-[#FDFDFD];
   }
 }
 
-@layer components {
-  .btn-neo {
-    @apply border-4 border-black bg-neo-yellow px-6 py-3 font-bold shadow-neo transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none;
+@layer utilities {
+  .shadow-soft {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   }
-
-  .card-neo {
-    @apply border-4 border-black bg-white p-6 shadow-neo;
+  .shadow-vibrant {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Hide scrollbar for clean aesthetic */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

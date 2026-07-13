@@ -25,34 +25,42 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="card-neo mx-auto w-full max-w-md">
-      <h1 className="mb-6 text-3xl font-black">Login</h1>
+    <div className="w-full max-w-md mx-auto bg-white/90 backdrop-blur-xl rounded-3xl shadow-vibrant p-10 border border-white">
+      <div className="flex flex-col items-center mb-8">
+        <div className="bg-gradient-to-r from-brand-pink to-brand-blue text-white font-bold px-6 py-2 rounded-xl tracking-widest mb-6 text-xl shadow-soft">
+          QUIZZZZZ
+        </div>
+        <h1 className="text-2xl font-bold text-slate-800">Selamat Datang</h1>
+        <p className="text-slate-500 font-medium text-sm mt-2">Silakan login ke akun Anda</p>
+      </div>
 
       {error && (
-        <div className="mb-4 border-4 border-black bg-red-100 p-3 font-bold text-red-700">
+        <div className="mb-6 bg-red-50 border border-red-100 text-red-600 p-4 rounded-xl text-sm font-bold text-center shadow-sm">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label className="mb-1 block font-bold">Email</label>
+          <label className="mb-2 block text-xs font-bold tracking-widest text-slate-500 uppercase">Email</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border-4 border-black px-3 py-2 font-bold focus:outline-none focus:ring-2 focus:ring-neo-cyan"
+            className="w-full bg-slate-50/50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
+            placeholder="Masukkan email"
             required
           />
         </div>
 
         <div>
-          <label className="mb-1 block font-bold">Password</label>
+          <label className="mb-2 block text-xs font-bold tracking-widest text-slate-500 uppercase">Password</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border-4 border-black px-3 py-2 font-bold focus:outline-none focus:ring-2 focus:ring-neo-cyan"
+            className="w-full bg-slate-50/50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
+            placeholder="Masukkan password"
             required
           />
         </div>
@@ -60,18 +68,20 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="btn-neo w-full disabled:opacity-50"
+          className="w-full bg-gradient-to-r from-brand-pink to-brand-blue text-white rounded-xl px-6 py-3.5 font-bold tracking-wider shadow-vibrant hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-4 uppercase"
         >
-          {loading ? 'Logging in...' : 'Login'}
+          {loading ? 'MEMPROSES...' : 'LOGIN'}
         </button>
       </form>
 
-      <p className="mt-4 text-center font-bold">
-        Don&apos;t have an account?{' '}
-        <Link to="/admin/register" className="text-neo-pink underline">
-          Register
-        </Link>
-      </p>
+      <div className="mt-8 text-center pt-6 border-t border-slate-100">
+        <p className="text-sm font-medium text-slate-500">
+          Belum punya akun?{' '}
+          <Link to="/admin/register" className="text-brand-pink font-bold hover:text-brand-blue transition-colors">
+            Daftar di sini
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

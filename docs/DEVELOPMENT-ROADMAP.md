@@ -98,7 +98,7 @@ serta konfigurasi environment. Belum ada halaman produk atau aturan game.
 ### Frontend
 
 - [ ] Buat React + TypeScript + Tailwind CSS + React Router.
-- [ ] Tambahkan app shell Neobrutalisme minimal dan halaman status development.
+- [ ] Tambahkan app shell Modern Minimalist (Narito UI) minimal dan halaman status development.
 - [ ] Buat HTTP client base URL dari environment dan socket client yang belum
       mengirim event produk.
 - [ ] Pastikan halaman dapat dibuka pada viewport minimum 320px.
@@ -209,7 +209,7 @@ Admin. Player belum membutuhkan akun.
 
 - [ ] Redirect guest dari `/admin/dashboard` ke `/admin/login`.
 - [ ] Redirect Admin login dari login/register ke dashboard.
-- [ ] UI mengikuti Neobrutalisme dan usable pada 320px.
+- [ ] UI mengikuti Modern Minimalist (Narito UI) dan usable pada 320px.
 
 ## Tidak Termasuk
 
@@ -266,7 +266,7 @@ Admin. Player belum membutuhkan akun.
 ## Tujuan
 
 Memungkinkan Admin mengelola kuis miliknya dengan CRUD lengkap dan editor
-pertanyaan pilihan ganda bergaya Neobrutalisme.
+pertanyaan pilihan ganda bergaya Modern Minimalist (Narito UI).
 
 ## Prasyarat
 
@@ -826,7 +826,7 @@ menyiapkan rilis staging/production.
 
 - [ ] Buka game pada lebar 320px dan desktop.
 
-  **Hasil harapan:** Keduanya usable serta UI Neobrutalisme konsisten.
+  **Hasil harapan:** Keduanya usable serta UI Modern Minimalist (Narito UI) konsisten.
 
 - [ ] Lengkapi
   [QA-CHECKLIST.md](file:///home/syzhaa/projects/aplikasi-kuis-interaktif/docs/QA-CHECKLIST.md)

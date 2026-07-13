@@ -54,7 +54,7 @@ hanya merender UI serta mengirim intent pengguna melalui REST atau Socket.IO.
 
 ---
 
-## ADR-002 — Frontend Type-Safe dan Neobrutalism
+## ADR-002 — Frontend Type-Safe dan Modern Minimalist (Narito UI)
 
 **Status:** Accepted  
 **Sumber:** PRD §8.1, §22
@@ -63,7 +63,7 @@ hanya merender UI serta mengirim intent pengguna melalui REST atau Socket.IO.
 
 Frontend menggunakan React dan TypeScript, React Router untuk navigasi,
 Socket.IO Client untuk real-time, serta Tailwind CSS untuk menerapkan desain
-Neobrutalisme.
+Modern Minimalist (Narito UI).
 
 ### Konsekuensi
 

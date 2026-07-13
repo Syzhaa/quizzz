@@ -58,7 +58,7 @@ kontributor — manusia maupun AI coding agent — menghasilkan kode yang seraga
 
 ### Styling
 
-- Gunakan Tailwind CSS dengan pola Neobrutalisme:
+- Gunakan Tailwind CSS dengan pola Modern Minimalist (Narito UI):
   - Border hitam tebal (`border-4 border-black`).
   - Hard shadow tanpa blur (`shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]`).
   - Warna cerah kontras tinggi (kuning, pink, cyan, hijau neon).

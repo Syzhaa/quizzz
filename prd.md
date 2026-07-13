@@ -13,13 +13,13 @@ Target Pengguna: Admin, Host, dan Player
 
 Aplikasi Kuis Interaktif adalah platform kuis berbasis web yang memungkinkan Admin atau Host menjalankan permainan kuis secara real-time. Host menampilkan pertanyaan melalui layar utama, komputer, televisi, atau proyektor. Player bergabung menggunakan perangkat masing-masing, seperti smartphone, tablet, atau laptop, dengan memasukkan PIN permainan dan nickname.
 
-Aplikasi memiliki konsep serupa dengan Kahoot, namun dibangun dengan identitas visual Neobrutalisme (border tebal, warna primer cerah kontras tinggi, bayangan asimetris solid, dan tipografi tebal) untuk memberikan kesan modern, berani, dan menyenangkan (fun).
+Aplikasi memiliki konsep serupa dengan Kahoot, namun dibangun dengan identitas visual Modern Minimalist (Narito UI) (border tebal, warna primer cerah kontras tinggi, bayangan asimetris solid, dan tipografi tebal) untuk memberikan kesan modern, berani, dan menyenangkan (fun).
 
 Fokus utama aplikasi:
 
 Interaksi real-time.
 
-Tampilan responsif bergaya Neobrutalisme.
+Tampilan responsif bergaya Modern Minimalist (Narito UI).
 
 Penggunaan yang sederhana.
 
@@ -85,7 +85,7 @@ Dashboard Admin.
 
 CRUD kuis.
 
-Editor pertanyaan (dengan gaya Neobrutalisme).
+Editor pertanyaan (dengan gaya Modern Minimalist (Narito UI)).
 
 Pertanyaan pilihan ganda (2-4 pilihan jawaban).
 
@@ -251,7 +251,7 @@ React.js.
 
 TypeScript.
 
-Tailwind CSS (Untuk mempermudah implementasi gaya Neobrutalisme).
+Tailwind CSS (Untuk mempermudah implementasi gaya Modern Minimalist (Narito UI)).
 
 React Router.
 
@@ -259,7 +259,7 @@ Socket.IO Client.
 
 State management ringan (Zustand/Context).
 
-Pedoman UI/UX (Neobrutalism):
+Pedoman UI/UX (Modern Minimalist (Narito UI)):
 
 Menggunakan garis batas (border) tebal berwarna hitam tegas (misal: border-4 border-black).
 
@@ -491,7 +491,7 @@ Tampilan Player dapat digunakan pada lebar layar 320 piksel.
 
 Aplikasi tidak melakukan reload ketika state permainan berubah.
 
-Aplikasi merender elemen visual bergaya Neobrutalisme dengan performa tinggi tanpa menyebabkan Cumulative Layout Shift (CLS) yang buruk.
+Aplikasi merender elemen visual bergaya Modern Minimalist (Narito UI) dengan performa tinggi tanpa menyebabkan Cumulative Layout Shift (CLS) yang buruk.
 
 Payload Socket.IO dijaga kecil.
 
@@ -511,7 +511,7 @@ Otomatisasi Linting, Type Checking, Unit & Integration Test sebelum merge PR.
 
 Fondasi: Setup repo, database, dan Auth.
 
-Editor Kuis: CRUD Kuis dan UI Editor Neobrutalisme.
+Editor Kuis: CRUD Kuis dan UI Editor Modern Minimalist (Narito UI).
 
 Core Multiplayer: Socket.IO, Lobby, Game State, Skor.
 

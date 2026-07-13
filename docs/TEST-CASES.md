@@ -274,7 +274,7 @@ fitur. Setiap skenario harus dicek sebelum fitur dianggap selesai.
 - **Langkah:** Jalankan permainan dari lobby sampai podium.
 - **Hasil:** Tidak ada full page reload.
 
-### TC-UI-003: Neobrutalisme
+### TC-UI-003: Modern Minimalist (Narito UI)
 - **Langkah:** Periksa elemen UI.
 - **Hasil:** Border tebal hitam, hard shadow, warna cerah, tipografi tebal.
 

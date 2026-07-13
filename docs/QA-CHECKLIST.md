@@ -58,7 +58,7 @@ Checklist ini harus dipenuhi sebelum fitur dianggap siap untuk merge ke
 
 - [ ] Tampilan berfungsi pada viewport minimum 320px.
 - [ ] Tidak ada full page reload saat perpindahan state/halaman.
-- [ ] Elemen UI mengikuti gaya Neobrutalisme:
+- [ ] Elemen UI mengikuti gaya Modern Minimalist (Narito UI):
   - [ ] Border hitam tebal.
   - [ ] Hard shadow tanpa blur.
   - [ ] Warna cerah kontras tinggi.
