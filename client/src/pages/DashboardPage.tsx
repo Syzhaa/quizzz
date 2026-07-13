@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../store/auth';
 import { getQuizzes, createQuiz, deleteQuiz, duplicateQuiz, Quiz } from '../services/quiz-api';
+import { createGameSession } from '../services/game-api';
 import { Plus, BarChart, Play, Users, Search, MoreHorizontal, Circle, Clock, Edit3, Trash2 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -57,6 +58,15 @@ export default function DashboardPage() {
       loadQuizzes();
     } catch (err: any) {
       alert(err.message || 'Failed to duplicate quiz');
+    }
+  };
+
+  const handleHost = async (id: string) => {
+    try {
+      const pin = await createGameSession(id);
+      navigate(`/admin/game/${pin}/lobby`);
+    } catch (err: any) {
+      alert(err.message || 'Failed to host game');
     }
   };
 
@@ -172,8 +182,8 @@ export default function DashboardPage() {
                     
                     {/* Action Buttons */}
                     <div className="flex items-center gap-3 mt-auto">
-                      <button className="flex-1 py-2.5 bg-brand-pink text-white rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2 opacity-60 cursor-not-allowed" title="Coming Soon" onClick={() => alert('Fitur bermain kuis (Tahap 3) akan segera hadir!')}>
-                        <Play strokeWidth={2.5} fill="currentColor" className="w-3.5 h-3.5" /> MAIN
+                      <button onClick={() => handleHost(quiz._id)} className="flex-1 py-2.5 bg-brand-pink text-white rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2" title="Host Game">
+                        <Play strokeWidth={2.5} fill="currentColor" className="w-3.5 h-3.5" /> HOST
                       </button>
                       <button onClick={() => navigate(`/admin/quiz/${quiz._id}/edit`)} className="w-10 h-10 bg-gray-50 text-slate-600 rounded-xl hover:bg-gray-100 flex items-center justify-center transition-all">
                         <Edit3 strokeWidth={2} className="w-4 h-4" />

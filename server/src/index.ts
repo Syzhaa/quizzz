@@ -9,8 +9,9 @@ import { loadEnv } from './config/env.js';
 import healthRouter from './routes/health.js';
 import authRouter from './routes/auth.js';
 import quizRouter from './routes/quiz.js';
+import { gameRouter } from './routes/game.js';
 import { errorHandler } from './middleware/error-handler.js';
-import { createNamespace } from './socket/namespace.js';
+import { setupSocketHandlers } from './socket/game-handler.js';
 
 const env = loadEnv();
 
@@ -27,11 +28,11 @@ app.use(express.json());
 app.use('/api/v1', healthRouter);
 app.use('/api/v1', authRouter);
 app.use('/api/v1', quizRouter);
+app.use('/api/v1/games', gameRouter);
 
 app.use(errorHandler);
 
-createNamespace(io, '/host');
-createNamespace(io, '/player');
+setupSocketHandlers(io);
 
 async function start() {
   try {

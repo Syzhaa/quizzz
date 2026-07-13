@@ -1,4 +1,5 @@
-import { Routes, Route, Link, Outlet } from 'react-router-dom';
+import { useState } from 'react';
+import { Routes, Route, Link, Outlet, useNavigate } from 'react-router-dom';
 import { AuthProvider } from './store/auth';
 import { ProtectedRoute, GuestRoute } from './components/AuthGuard';
 import AdminLayout from './components/AdminLayout';
@@ -6,6 +7,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import QuizEditPage from './pages/QuizEditPage';
+import HostLobbyPage from './pages/HostLobbyPage';
+import PlayerLobbyPage from './pages/PlayerLobbyPage';
 
 function PublicLayout() {
   return (
@@ -41,6 +44,7 @@ export default function App() {
       <Routes>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/game/:pin" element={<PlayerLobbyPage />} />
           <Route
             path="/admin/login"
             element={
@@ -70,6 +74,16 @@ export default function App() {
           />
         </Route>
 
+        {/* Halaman Host Lobby memiliki tampilan full screen */}
+        <Route
+          path="/admin/game/:pin/lobby"
+          element={
+            <ProtectedRoute>
+              <HostLobbyPage />
+            </ProtectedRoute>
+          }
+        />
+
         {/* Editor Kuis memiliki layout sendiri (tanpa AdminLayout) */}
         <Route
           path="/admin/quiz/create"
@@ -93,39 +107,60 @@ export default function App() {
 }
 
 function HomePage() {
+  const [pin, setPin] = useState('');
+  const [nickname, setNickname] = useState('');
+  const navigate = useNavigate();
+
+  const handleJoin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!pin.trim() || !nickname.trim()) return;
+    navigate(`/game/${pin}`, { state: { nickname } });
+  };
+
   return (
-    <div className="mx-auto my-auto w-full max-w-2xl text-center bg-white rounded-[2rem] shadow-soft p-12">
-      <h1 className="mb-4 text-4xl font-bold tracking-tight text-slate-800">
-        Quizzzzz Quiz Platform
+    <div className="mx-auto my-auto w-full max-w-sm text-center bg-white rounded-[2rem] shadow-vibrant p-10 border border-gray-100">
+      <h1 className="mb-2 text-3xl font-black tracking-tight text-slate-800">
+        Siap Bermain?
       </h1>
-      <p className="mb-10 text-lg font-medium text-slate-500">
-        Interactive & Minimalist Quiz Editor
+      <p className="mb-8 text-sm font-medium text-slate-500">
+        Masukkan PIN untuk bergabung
       </p>
 
-      <div className="mb-10 space-y-4 text-left text-sm font-medium text-slate-600 p-8 bg-gray-50/50 border border-gray-100 rounded-2xl">
-        <div className="flex items-center gap-3">
-          <span className="inline-block h-3 w-3 rounded-full bg-brand-teal shadow-soft" />
-          <span>Frontend: React + Vite + TypeScript</span>
+      <form onSubmit={handleJoin} className="space-y-4">
+        <div>
+          <input
+            type="text"
+            placeholder="PIN PERMAINAN"
+            value={pin}
+            onChange={(e) => setPin(e.target.value.toUpperCase())}
+            className="w-full text-center text-xl font-bold tracking-widest px-6 py-4 rounded-2xl bg-gray-50 border-2 border-gray-100 focus:border-brand-pink focus:outline-none focus:ring-4 focus:ring-brand-pink/20 transition-all placeholder-slate-300"
+            maxLength={6}
+            required
+          />
         </div>
-        <div className="flex items-center gap-3">
-          <span className="inline-block h-3 w-3 rounded-full bg-brand-blue shadow-soft" />
-          <span>Backend: Express + Socket.IO + TypeScript</span>
+        <div>
+          <input
+            type="text"
+            placeholder="NAMA KAMU"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            className="w-full text-center font-bold tracking-wider px-6 py-4 rounded-2xl bg-gray-50 border-2 border-gray-100 focus:border-brand-blue focus:outline-none focus:ring-4 focus:ring-brand-blue/20 transition-all placeholder-slate-300"
+            maxLength={15}
+            required
+          />
         </div>
-        <div className="flex items-center gap-3">
-          <span className="inline-block h-3 w-3 rounded-full bg-brand-yellow shadow-soft" />
-          <span>Database: MongoDB + Redis</span>
-        </div>
-      </div>
-
-      <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <Link to="/admin/register" className="w-full sm:w-auto bg-brand-pink text-white rounded-xl px-8 py-3.5 font-bold tracking-wider shadow-soft hover:bg-opacity-90 active:scale-[0.98] transition-all uppercase text-sm">
-          Get Started
-        </Link>
-        <Link
-          to="/admin/login"
-          className="w-full sm:w-auto bg-white text-slate-600 border border-gray-200 rounded-xl px-8 py-3.5 font-bold tracking-wider shadow-sm hover:bg-gray-50 active:scale-[0.98] transition-all uppercase text-sm"
+        <button
+          type="submit"
+          disabled={!pin || !nickname}
+          className="w-full bg-slate-900 text-white rounded-2xl px-8 py-4 font-bold tracking-widest shadow-soft hover:bg-slate-800 active:scale-95 transition-all uppercase disabled:opacity-50 disabled:cursor-not-allowed mt-2"
         >
-          Login Account
+          Masuk
+        </button>
+      </form>
+
+      <div className="mt-8 pt-8 border-t border-gray-100">
+        <Link to="/admin/login" className="text-xs font-bold tracking-wider text-slate-400 hover:text-brand-pink transition-colors uppercase">
+          Login sebagai Guru/Host
         </Link>
       </div>
     </div>
