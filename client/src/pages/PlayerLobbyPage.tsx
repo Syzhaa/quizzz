@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { io, Socket } from 'socket.io-client';
+import { createSocket } from '../utils/socket';
+import { Socket } from 'socket.io-client';
 import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 
 export default function PlayerLobbyPage() {
@@ -13,6 +14,7 @@ export default function PlayerLobbyPage() {
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [, setSocket] = useState<Socket | null>(null);
   const [finalNickname, setFinalNickname] = useState(nickname);
+  const finalNicknameRef = useRef(nickname);
 
   useEffect(() => {
     if (!pin || !nickname) {
@@ -20,8 +22,9 @@ export default function PlayerLobbyPage() {
       return;
     }
 
-    const playerSocket = io('/player');
+    const playerSocket = createSocket('/player');
     setSocket(playerSocket);
+    playerSocket.connect();
 
     playerSocket.on('connect', () => {
       playerSocket.emit('join_game', { pin, nickname });
@@ -29,12 +32,17 @@ export default function PlayerLobbyPage() {
 
     playerSocket.on('joined', (data) => {
       setStatus('connected');
-      setFinalNickname(data.nickname); // Nama mungkin disesuaikan backend jika kembar
+      setFinalNickname(data.nickname);
+      finalNicknameRef.current = data.nickname;
     });
 
     playerSocket.on('error', (err) => {
       setStatus('error');
-      setErrorMsg(err.message);
+      setErrorMsg(err.message || 'Terjadi kesalahan');
+    });
+
+    playerSocket.on('game_started', () => {
+      navigate(`/game/${pin}/play`, { state: { nickname: finalNicknameRef.current || nickname } });
     });
 
     return () => {

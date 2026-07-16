@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Users, Play, AlertCircle } from 'lucide-react';
-import { getGameSessionStatus } from '../services/game-api';
-import { io, Socket } from 'socket.io-client';
+import { getGameSessionStatus, Player } from '../services/game-api';
+import { useAuth } from '../store/auth';
+import { createSocket } from '../utils/socket';
+import { Socket } from 'socket.io-client';
 
 export default function HostLobbyPage() {
   const { pin } = useParams<{ pin: string }>();
   const navigate = useNavigate();
-  const [players, setPlayers] = useState<any[]>([]);
+  const { accessToken } = useAuth();
+  const [players, setPlayers] = useState<Player[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    if (!pin) return;
+    if (!pin || !accessToken) return;
 
     // Cek status sesi game melalui API
     getGameSessionStatus(pin)
@@ -20,9 +23,10 @@ export default function HostLobbyPage() {
         if (data.status !== 'waiting') {
           setError('Sesi kuis sudah dimulai atau telah berakhir');
         } else {
-          // Koneksi Socket.io ke namespace /host
-          const hostSocket = io('/host');
+          // Koneksi Socket.io ke namespace /host dengan JWT auth
+          const hostSocket = createSocket('/host', { token: accessToken });
           setSocket(hostSocket);
+          hostSocket.connect();
 
           hostSocket.on('connect', () => {
             hostSocket.emit('join_game', { pin });
@@ -36,8 +40,12 @@ export default function HostLobbyPage() {
             setPlayers(updatedPlayers);
           });
 
-          hostSocket.on('player_left', (updatedPlayers) => {
+          hostSocket.on('player_left', (updatedPlayers: Player[]) => {
             setPlayers(updatedPlayers);
+          });
+
+          hostSocket.on('game_started', () => {
+            navigate(`/admin/game/${pin}/play`);
           });
 
           hostSocket.on('error', (err) => {
@@ -87,7 +95,7 @@ export default function HostLobbyPage() {
             <Users className="w-5 h-5 text-brand-blue" />
             <span className="text-xl">{players.length}</span>
           </div>
-          <button onClick={() => alert('Fitur bermain kuis (menampilkan soal) akan segera hadir!')} className="bg-brand-teal text-white font-bold px-6 py-3 rounded-xl tracking-widest flex items-center gap-2 shadow-vibrant hover:bg-opacity-90 hover:-translate-y-1 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0" disabled={players.length === 0}>
+          <button onClick={() => socket?.emit('start_game', { pin })} className="bg-brand-teal text-white font-bold px-6 py-3 rounded-xl tracking-widest flex items-center gap-2 shadow-vibrant hover:bg-opacity-90 hover:-translate-y-1 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0" disabled={players.length === 0}>
             <Play fill="currentColor" className="w-5 h-5" /> MULAI SEKARANG
           </button>
         </div>

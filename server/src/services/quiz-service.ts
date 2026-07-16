@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Quiz, QuizDocument, Question } from '../models/quiz.js';
+import { Quiz, Question } from '../models/quiz.js';
 
 export class QuizError extends Error {
   constructor(
